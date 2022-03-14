@@ -1,0 +1,143 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "RentalX Documentation",
+        "version": "1.0.0",
+        "description": "RentalX API Documentation"
+    },
+    "paths": {
+        "/categories": {
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Create a new category",
+                "description": "Create a new category",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "New Category"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "New Category Description"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created category"
+                    },
+                    "400": {
+                        "description": "Category already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Get all categories",
+                "description": "Get all categories",
+                "response": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name":{
+                                                "type":"string"
+                                            },
+                                            "description":{
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+        
+            }
+        },
+        "/categories/import": {
+            "post": {
+                "tags": ["Category"],
+                "summary": "Upload new categories",
+                "description": "Import categories",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created categories"
+                    }
+                }
+            }
+        },
+        "/specifications":{
+            "post": {
+                "tags": ["Specifications"],
+                "summary": "Create a new specification",
+                "description": "Create a new specification",
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema":{
+                                "$ref": "#/definitions/Specification"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created specification"
+                    },
+                    "400": {
+                        "description": "Specification already exists"
+                    }
+                }
+            }
+        }
+    },
+    "definitions":{
+        "Specification": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "example": "New Specification"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "New Specification Description"
+                }
+            }
+        }
+    }
+}
